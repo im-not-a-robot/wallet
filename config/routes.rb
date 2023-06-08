@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  get '/users', to: 'user#all'
-  post '/users/create', to: 'user#create'
+  post '/auth', to: 'authentication#authenticate'
+  post '/deposit', to: 'transaction#deposit'
+  post '/withdraw', to: 'transaction#withdraw'
 end

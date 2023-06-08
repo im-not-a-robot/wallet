@@ -14,12 +14,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_150754) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "balances", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.float "balance", default: 0.0, null: false
+  create_table "actions", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["balance"], name: "index_balances_on_balance"
+  end
+
+  create_table "balances", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.float "amount", default: 0.0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["amount"], name: "index_balances_on_amount"
     t.index ["user_id"], name: "index_balances_on_user_id"
   end
 
@@ -45,16 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_150754) do
 
   create_table "transactions", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "action", null: false
+    t.bigint "action_id", null: false
     t.float "debit", default: 0.0, null: false
     t.float "credit", default: 0.0, null: false
-    t.string "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["action"], name: "index_transactions_on_action"
+    t.index ["action_id"], name: "index_transactions_on_action_id"
     t.index ["credit"], name: "index_transactions_on_credit"
     t.index ["debit"], name: "index_transactions_on_debit"
-    t.index ["status"], name: "index_transactions_on_status"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
@@ -70,8 +74,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_150754) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.string "name"
+    t.string "email", null: false
+    t.string "name", null: false
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

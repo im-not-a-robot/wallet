@@ -1,5 +1,6 @@
 class Transaction < ApplicationRecord
   belongs_to :user
+  belongs_to :action
 
-  validates :user, :action, :debit, :credit, :status, presence: true
+  validates :user, :action, :debit, :credit, presence: true
 end
