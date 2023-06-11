@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
   private
   def authenticate_request
     token = request.headers['Authorization']
+    token = token.remove("Bearer ")
     decoded_token = decode_token(token)
     @current_user = User.find(decoded_token["user_id"]) if decoded_token
   rescue JWT::DecodeError

@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   post '/auth', to: 'authentication#authenticate'
   post '/deposit', to: 'transaction#deposit'
   post '/withdraw', to: 'transaction#withdraw'
+  post '/transfer', to: 'transaction#transfer'
 end
